@@ -1,4 +1,12 @@
-import { Body, Controller, Get, Post, UseGuards } from '@nestjs/common'
+import {
+  Body,
+  Controller,
+  Get,
+  Post,
+  UseGuards,
+  Param,
+  ParseUUIDPipe,
+} from '@nestjs/common'
 import { PetService } from '../services/pet.service'
 import { AuthGuard } from '../../guards/auth.guard'
 import { CreatePetDTO } from '../dto/create-pet.dto'
@@ -26,5 +34,10 @@ export class PetController {
   @Get()
   async list() {
     return this.petService.list('Osasco')
+  }
+
+  @Get(':id')
+  async show(@Param('id', ParseUUIDPipe) id: string) {
+    return this.petService.show(id)
   }
 }

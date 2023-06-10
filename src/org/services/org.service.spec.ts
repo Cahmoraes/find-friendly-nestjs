@@ -2,8 +2,8 @@ import { Test, TestingModule } from '@nestjs/testing'
 import { OrgService } from './org.service'
 import { PrismaService } from '../../prisma/services/prisma.service'
 import { orgRepositoryMock } from '../../../testing/org-repository.mock'
-import { OrgEntity } from '../entities/org.entity'
 import { BadRequestException } from '@nestjs/common'
+import { OrgEntity } from '../entities/org.entity'
 
 describe('OrgService', () => {
   let orgService: OrgService

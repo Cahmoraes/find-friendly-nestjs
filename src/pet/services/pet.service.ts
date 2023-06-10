@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common'
+import { BadRequestException, Injectable } from '@nestjs/common'
 import { PrismaService } from '../../prisma/services/prisma.service'
 import { OrgService } from '../../org/services/org.service'
 import { PetEntity } from '../entities/pet.entity'
@@ -23,6 +23,8 @@ export class PetService {
   }
 
   public async create(aPet: PetEntity) {
+    await this.orgService.findById(aPet.orgId.value)
+
     return this.prismaService.pet.create({
       data: {
         age: aPet.age,
@@ -37,5 +39,15 @@ export class PetService {
         },
       },
     })
+  }
+
+  public async show(aId: string) {
+    const pet = await this.prismaService.pet.findUnique({
+      where: {
+        id: aId,
+      },
+    })
+    if (!pet) throw new BadRequestException('Pet not found')
+    return pet
   }
 }

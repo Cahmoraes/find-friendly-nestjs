@@ -69,7 +69,7 @@ export class OrgService {
       },
     })
     if (!prismaOrg) {
-      throw new NotFoundException(`O usuário ${id} não existe.`)
+      throw new NotFoundException(`Organization doesn't exists.`)
     }
     return this.createOrg(prismaOrg)
   }
