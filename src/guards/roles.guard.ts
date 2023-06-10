@@ -18,7 +18,6 @@ export class RolesGuard implements CanActivate {
     }
     const { org } = context.switchToHttp().getRequest()
     const orgEntity = OrgACL.toEntity(org)
-    console.log(requiredRoles)
     const rolesFiltered = requiredRoles.filter(
       (role) => role === orgEntity.role,
     )

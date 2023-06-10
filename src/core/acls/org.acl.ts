@@ -1,5 +1,6 @@
 import { CreateOrgDTO } from '../../org/dto/create-org.dto'
-import { OrgEntity } from '../../org/entity/org'
+import { OrgDTO } from '../../org/dto/org.dto'
+import { OrgEntity } from '../../org/entities/org.entity'
 
 export class OrgACL {
   static toEntities(createOrgDTOs: CreateOrgDTO[]): OrgEntity[] {
@@ -16,21 +17,21 @@ export class OrgACL {
     })
   }
 
-  static toDTOs(orgsEntities: OrgEntity[]): CreateOrgDTO[] {
+  static toDTOs(orgsEntities: OrgEntity[]): OrgDTO[] {
     return orgsEntities.map((org) => ({
+      id: org.id.value,
       city: org.city,
       email: org.email,
-      password: org.password,
       phone: org.phone,
       role: org.role,
     }))
   }
 
-  static toDTO(orgEntity: OrgEntity): CreateOrgDTO {
+  static toDTO(orgEntity: OrgEntity): OrgDTO {
     return {
+      id: orgEntity.id.value,
       city: orgEntity.city,
       email: orgEntity.email,
-      password: orgEntity.password,
       phone: orgEntity.phone,
       role: orgEntity.role,
     }

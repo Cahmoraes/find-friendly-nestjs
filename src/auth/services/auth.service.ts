@@ -4,8 +4,8 @@ import {
   UnauthorizedException,
 } from '@nestjs/common'
 import { JwtService } from '@nestjs/jwt'
-import { OrgEntity } from '../../org/entity/org'
-import { CryptographyService } from './cryptography.service'
+import { OrgEntity } from '../../org/entities/org.entity'
+import { CryptographyService } from '../../core/services/cryptography.service'
 
 @Injectable()
 export class AuthService {

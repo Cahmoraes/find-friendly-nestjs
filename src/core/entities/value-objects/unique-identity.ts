@@ -7,7 +7,11 @@ export class UniqueIdentity {
     this._value = id ?? randomUUID()
   }
 
-  get value() {
+  public get value() {
     return this._value
+  }
+
+  public equals(other: UniqueIdentity) {
+    return this._value === other._value
   }
 }

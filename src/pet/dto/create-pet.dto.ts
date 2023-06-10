@@ -1,11 +1,19 @@
-import { z } from 'zod'
+import { IsEnum, IsNumber, IsString, IsUUID } from 'class-validator'
+import { Size } from '../enums/size.enum'
 
-export const createPetSchema = z.object({
-  name: z.string(),
-  age: z.number(),
-})
+export class CreatePetDTO {
+  @IsUUID()
+  orgId: string
 
-export interface CreatePetDTO {
+  @IsString()
   name: string
+
+  @IsString()
+  description: string
+
+  @IsNumber()
   age: number
+
+  @IsEnum(Size)
+  size: Size
 }

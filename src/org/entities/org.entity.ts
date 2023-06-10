@@ -12,10 +12,7 @@ export interface OrgProps {
 }
 
 export class OrgEntity extends Entity<OrgProps> {
-  static create(
-    props: Optional<OrgEntity, 'id' | 'createdAt'>,
-    id?: UniqueIdentity,
-  ) {
+  static create(props: Optional<OrgProps, 'createdAt'>, id?: UniqueIdentity) {
     return new OrgEntity(
       {
         ...props,

@@ -4,7 +4,7 @@ import {
   NotFoundException,
 } from '@nestjs/common'
 import { PrismaService } from '../../prisma/services/prisma.service'
-import { OrgEntity } from '../entity/org'
+import { OrgEntity } from '../entities/org.entity'
 import { Org } from '@prisma/client'
 import { UniqueIdentity } from '../../core/entities/value-objects/unique-identity'
 
