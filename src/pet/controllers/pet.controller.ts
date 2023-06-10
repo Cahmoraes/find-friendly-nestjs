@@ -6,6 +6,7 @@ import {
   UseGuards,
   Param,
   ParseUUIDPipe,
+  Query,
 } from '@nestjs/common'
 import { PetService } from '../services/pet.service'
 import { AuthGuard } from '../../guards/auth.guard'
@@ -32,8 +33,8 @@ export class PetController {
   }
 
   @Get()
-  async list() {
-    return this.petService.list('Osasco')
+  async searchByCity(@Query('city') city?: string) {
+    if (!city) return this.petService.list('Osasco')
   }
 
   @Get(':id')
