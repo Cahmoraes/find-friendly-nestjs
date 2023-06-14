@@ -23,7 +23,7 @@ export class PetService {
   }
 
   public async create(aPet: PetEntity) {
-    await this.orgService.findById(aPet.orgId.value)
+    await this.orgService.findByIdOrThrow(aPet.orgId.value)
 
     return this.prismaService.pet.create({
       data: {

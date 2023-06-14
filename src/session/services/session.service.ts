@@ -11,7 +11,6 @@ export class SessionService {
   ) {}
 
   public async create(credential: CredentialDTO): Promise<string> {
-    const org = await this.orgService.findByEmail(credential.email)
-    return this.authService.login(org, credential.password)
+    return this.authService.authenticate(credential)
   }
 }

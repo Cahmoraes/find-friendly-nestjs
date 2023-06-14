@@ -6,15 +6,18 @@ import {
 import { JwtService } from '@nestjs/jwt'
 import { OrgEntity } from '../../org/entities/org.entity'
 import { CryptographyService } from '../../core/services/cryptography.service'
+import { OrgService } from '../../org/services/org.service'
+import { CredentialDTO } from '../../session/dto/credential.dto'
 
 @Injectable()
 export class AuthService {
   constructor(
     private readonly jwtService: JwtService,
     private readonly cryptographyService: CryptographyService,
+    private readonly orgService: OrgService,
   ) {}
 
-  public verify(token: string) {
+  public verifyToken(token: string) {
     try {
       return this.jwtService.verify(token)
     } catch {
@@ -22,18 +25,19 @@ export class AuthService {
     }
   }
 
-  public async login(aOrg: OrgEntity, password: string): Promise<string> {
+  public async authenticate(credential: CredentialDTO): Promise<string> {
+    const org = await this.orgService.findByEmailOrThrow(credential.email)
     const passwordsMatches = await this.cryptographyService.compare(
-      password,
-      aOrg.password,
+      credential.password,
+      org.password,
     )
     if (!passwordsMatches) {
       throw new BadRequestException('Email or password mismatch')
     }
-    return this.sign(aOrg)
+    return this.signToken(org)
   }
 
-  private sign(anOrgEntity: OrgEntity): string {
+  private signToken(anOrgEntity: OrgEntity): string {
     return this.jwtService.sign(
       {
         sub: anOrgEntity.id.value,

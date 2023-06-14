@@ -50,7 +50,7 @@ export class OrgService {
     )
   }
 
-  public async findByEmail(email: string) {
+  public async findByEmailOrThrow(email: string) {
     const orgExisting = await this.prismaService.org.findUnique({
       where: {
         email,
@@ -62,7 +62,7 @@ export class OrgService {
     return this.createOrg(orgExisting)
   }
 
-  public async findById(id: string): Promise<OrgEntity> {
+  public async findByIdOrThrow(id: string): Promise<OrgEntity> {
     const prismaOrg = await this.prismaService.org.findUnique({
       where: {
         id,

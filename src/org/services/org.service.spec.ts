@@ -43,7 +43,7 @@ describe('OrgService', () => {
   })
 
   test('findByEmail', async () => {
-    const result = await orgService.findByEmail('test@example.com')
+    const result = await orgService.findByEmailOrThrow('test@example.com')
     expect(result).toMatchObject({
       city: 'Osasco 1',
     })
@@ -52,7 +52,7 @@ describe('OrgService', () => {
   test('deve lançar uma exceção caso usuário não exista', async () => {
     jest.spyOn(prismaService.org, 'findUnique').mockResolvedValueOnce(null)
     await expect(() =>
-      orgService.findByEmail('nothing'),
+      orgService.findByEmailOrThrow('nothing'),
     ).rejects.toBeInstanceOf(BadRequestException)
 
     jest.resetAllMocks()

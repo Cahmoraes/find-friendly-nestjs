@@ -20,7 +20,7 @@ export class OrgController {
   async create(@Body() createOrgDTO: CreateOrgDTO) {
     const org = OrgACL.toEntity({
       ...createOrgDTO,
-      password: await this.cryptographyService.hash(createOrgDTO.password),
+      password: await this.cryptographyService.encrypt(createOrgDTO.password),
     })
     const prismaOrg = await this.orgService.create(org)
     return { org: OrgACL.toDTO(prismaOrg) }
